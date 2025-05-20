@@ -1,82 +1,109 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, usePoll } from '@inertiajs/vue3';
+import { ref } from 'vue'
+import { router } from '@inertiajs/vue3'
+usePoll(5000, { only: ['userCount'] });
+const email = ref('')
+const success = ref('')
+defineProps({
+  userCount: Number,
+})
+const submit = () => {
+  router.post('/signup', { email: email.value }, {
+    onSuccess: () => {
+      email.value = ''
+      success.value = 'Thank you for signing up!'
+    },
+    onError: () => {
+      success.value = ''
+    }
+  })
+}
 </script>
 
 <template>
-  <Head title="Welcome">
-
+  <Head title="Human">
+   
 
   </Head>
-  <div class="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#fdf6f6] to-[#f7f7fa] dark:from-[#18181b] dark:to-[#1a1a1e]">
-    <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row shadow-2xl rounded-3xl overflow-hidden bg-white/90 dark:bg-[#18181b]/90 border border-[#ececec] dark:border-[#23232a]">
+  <div class="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+    <!-- Mysterious background image with dark overlay -->
+    <div class="absolute inset-0 z-0">
+      <div class="w-full h-full bg-cover bg-center" style="background-image: url('/ai.png'); filter: blur(2px) brightness(0.7);"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-black/90 via-[#1a1a1e]/80 to-[#2d0a1a]/80"></div>
+    </div>
+    <!-- Main content -->
+    <div class="relative z-10 w-full max-w-5xl mx-auto flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl border border-[#23232a] bg-white/5 backdrop-blur-md">
       <!-- Text Section -->
-      <section class="flex-1 px-8 py-12 flex flex-col justify-center gap-8">
+      <section class="flex-1 px-8 py-12 flex flex-col justify-center gap-8 text-white">
         <header>
-          <h1 class="text-4xl lg:text-5xl font-bold mb-4 text-[#1b1b18] dark:text-[#f7f7fa] leading-tight" style="font-family: 'Inter', sans-serif;">
-            Stop the Silent Takeover of AI
+          <h1 class="text-4xl lg:text-5xl font-bold mb-4 drop-shadow-lg" style="letter-spacing: 0.01em;">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f53003] via-[#ff4433] to-[#fff]">The Silent Takeover</span><br>
+            <span class="opacity-80">of Artificial Intelligence</span>
           </h1>
-          <p class="text-lg text-[#5a5955] dark:text-[#bdbdb8] mb-6 max-w-2xl" style="font-family: 'IBM Plex Sans', sans-serif;">
-            In a world where technology evolves rapidly, <strong class="text-[#f53003] dark:text-[#FF4433]">Artificial Intelligence is quietly replacing human creativity and skill</strong>—starting with developers and digital creators.<br>
-            We are <strong>not against progress</strong>, but we demand a <strong>balanced</strong> future where <strong>AI empowers us</strong>, not replaces us.
+          <p class="text-lg mb-8 max-w-2xl text-[#e0e0e0]">
+            In the shadows of progress, <span class="text-[#FF4433] font-semibold">AI is quietly replacing human creativity</span>.<br>
+            Will you stand by, or shape the future?
           </p>
         </header>
         <ul class="space-y-4 text-base">
           <li class="flex items-start gap-3">
-            <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#000000] dark:bg-[#000000] text-white font-bold">✓</span>
-            <span>
-              <span class="font-medium">Creativity is more than code.</span>
-            
-            </span>
+            <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF4433] text-white font-bold shadow-lg">✓</span>
+            <span class="font-medium">Creativity is more than code.</span>
           </li>
           <li class="flex items-start gap-3">
-            <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#000] dark:bg-[#000] text-white font-bold">✓</span>
-            <span>
-              <span class="font-medium">Human intelligence is irreplaceable.</span>
-            
-            </span>
+            <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF4433] text-white font-bold shadow-lg">✓</span>
+            <span class="font-medium">Human intelligence is irreplaceable.</span>
           </li>
           <li class="flex items-start gap-3">
-            <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#000] dark:bg-[#000] text-white font-bold">✓</span>
-            <span>
-              <span class="font-medium">People should shape the future of technology—not be pushed aside by it.</span>
-            </span>
+            <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#FF4433] text-white font-bold shadow-lg">✓</span>
+            <span class="font-medium">People must shape technology's future.</span>
           </li>
         </ul>
         <div class="mt-8">
-          <h2 class="text-xl font-semibold mb-3 text-[#1b1b18] dark:text-[#f7f7fa]">Join us now and support a movement that:</h2>
+          <h2 class="text-xl font-semibold mb-3 text-white/90">Join a movement that:</h2>
           <ul class="space-y-3 text-base">
             <li class="flex items-start gap-3">
-              <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#000] dark:bg-[#000] text-white font-bold">•</span>
-              <span>Promotes ethical and responsible use of AI</span>
+              <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#fff] text-[#FF4433] font-bold">•</span>
+              <span>Promotes ethical, responsible AI</span>
             </li>
             <li class="flex items-start gap-3">
-              <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#000] dark:bg-[#000] text-white font-bold">•</span>
+              <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#fff] text-[#FF4433] font-bold">•</span>
               <span>Protects creative and technical jobs</span>
             </li>
             <li class="flex items-start gap-3">
-              <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#000] dark:bg-[#000] text-white font-bold">•</span>
-              <span>Encourages AI as a tool, not a substitute</span>
+              <span class="mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#fff] text-[#FF4433] font-bold">•</span>
+              <span>Encourages AI as a tool, not a replacement</span>
             </li>
           </ul>
         </div>
-        <div class="mt-10">
-          <strong class="block text-lg mb-4 text-[#1b1b18] dark:text-[#f7f7fa]">Sign up today and be part of the voice calling for a fair and human-centered future.</strong>
-          <a
-            href="https://cloud.laravel.com"
-            target="_blank"
-            class="inline-block rounded-lg border border-[#f53003] bg-[#f53003] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#c41e00] hover:border-[#c41e00] transition dark:bg-[#FF4433] dark:border-[#FF4433] dark:hover:bg-[#c41e00] dark:hover:border-[#c41e00]"
-          >
-            Deploy now
-          </a>
+      </section>
+      <!-- Form Section -->
+      <section class="flex-1 flex flex-col justify-center items-center px-8 py-12 bg-black/60 backdrop-blur-lg">
+        <div class="w-full max-w-sm mx-auto p-8 rounded-2xl shadow-xl bg-gradient-to-br from-[#18181b]/90 to-[#23232a]/90 border border-[#333]">
+          <div class="mb-6 text-center">
+            <div class="text-xs uppercase tracking-widest text-[#FF4433] mb-2">Current Humans</div>
+            <div class="text-5xl font-extrabold text-white drop-shadow-glow" style="text-shadow: 0 0 16px #FF4433, 0 0 2px #fff;">
+              {{ userCount }}<span class="text-[#FF4433] text-2xl align-top">+</span>
+            </div>
+            <div class="text-gray-400 text-xs mt-2">Already joined the resistance</div>
+          </div>
+          <form @submit.prevent="submit" class="flex flex-col gap-4">
+            <input
+              v-model="email"
+              type="email"
+              placeholder="Enter your email"
+              class="border border-[#FF4433] bg-black/60 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF4433] placeholder-gray-400"
+              required
+            />
+            <button type="submit" class="bg-gradient-to-r from-[#f53003] to-[#FF4433] text-white font-bold py-3 rounded-lg shadow-lg hover:from-[#c41e00] hover:to-[#c41e00] transition">
+              Sign Up
+            </button>
+            <p v-if="success" class="text-green-400 text-center mt-2">{{ success }}</p>
+          </form>
+          <span class="mt-4 block text-gray-500 text-xs text-center">We never spam or share your email.</span>
         </div>
       </section>
-      <!-- Image Section -->
-     <section
-  class="flex-1 min-h-[400px] flex items-center justify-center relative bg-cover bg-center"
-  style="background-image: url('/ai.png'); background-size: cover; background-position: center;"
->
-  <div class="absolute inset-0 bg-gradient-to-t from-[red]/80 to-transparent dark:from-[#1D0002]/80 pointer-events-none"></div>
-</section>
     </div>
   </div>
 </template>
